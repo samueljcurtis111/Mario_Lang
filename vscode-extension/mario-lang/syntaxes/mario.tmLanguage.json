@@ -1,15 +1,111 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "Mario",
+  "name": "Mario Lang",
   "patterns": [
-    {
-      "name": "keyword.control.mario",
-      "match": "(?i)\\bmario\\b"
-    },
-    {
-      "name": "comment.line.number-sign.mario",
-      "match": "#.*$"
-    }
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#mario-8" },
+    { "include": "#mario-7" },
+    { "include": "#mario-6" },
+    { "include": "#mario-5-print" },
+    { "include": "#mario-4" },
+    { "include": "#mario-3" },
+    { "include": "#mario-2" },
+    { "include": "#mario-1" }
   ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.mario",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.mario",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.mario",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.mario",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+    "mario-8": {
+      "patterns": [
+        {
+          "name": "keyword.other.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-7": {
+      "patterns": [
+        {
+          "name": "entity.name.type.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-6": {
+      "patterns": [
+        {
+          "name": "entity.name.section.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-5-print": {
+      "patterns": [
+        {
+          "name": "support.function.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-4": {
+      "patterns": [
+        {
+          "name": "keyword.control.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-3": {
+      "patterns": [
+        {
+          "name": "storage.type.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-2": {
+      "patterns": [
+        {
+          "name": "constant.language.mario",
+          "match": "\\bmario\\s+mario\\b"
+        }
+      ]
+    },
+    "mario-1": {
+      "patterns": [
+        {
+          "name": "variable.parameter.mario",
+          "match": "\\bmario\\b"
+        }
+      ]
+    }
+  },
   "scopeName": "source.mario"
 }
