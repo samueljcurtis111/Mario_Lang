@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Mario",
+  "patterns": [
+    {
+      "name": "keyword.control.mario",
+      "match": "(?i)\\bmario\\b"
+    },
+    {
+      "name": "comment.line.number-sign.mario",
+      "match": "#.*$"
+    }
+  ],
+  "scopeName": "source.mario"
+}

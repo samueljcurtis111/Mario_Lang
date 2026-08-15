@@ -1,0 +1,25 @@
+{
+  "name": "mario-lang",
+  "displayName": "Mario Lang",
+  "description": "Syntax highlighting for Mario Lang",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.125.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "mario",
+      "aliases": ["Mario", "mario"],
+      "extensions": [".mario"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "mario",
+      "scopeName": "source.mario",
+      "path": "./syntaxes/mario.tmLanguage.json"
+    }]
+  }
+}
