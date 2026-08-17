@@ -1,0 +1,14 @@
+# Cargo build outputs
+/target/
+**/*.rs.bk
+
+
+# IDE / Editor local files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
