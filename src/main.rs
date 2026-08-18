@@ -95,25 +95,22 @@ for &token in tokens {
 
 
 fn main() -> std::io::Result<()> {
-
-    let arch = std::env::consts::ARCH;
     let input = fs::read_to_string("src/input.mario")?;
 
     let tokens = tokenize(&input);
     let generated_code = generate(&tokens);
 
-    fs::write("output.c", generated_code)?;
+    fs::write("src/output.c", generated_code)?;
 
     println!("Successfully saved generated code to output.c");
     let output = Command::new("gcc")
         .args([
             "-O3", 
-            "-S", 
-            "-masm=intel", 
+            "-S",  
             "-march=native", 
-            "output.c", 
+            "src/output.c", 
             "-o", 
-            "output.s"
+            "src/output.s"
         ])
         .output()
         .expect("Failed to execute gcc. Is it installed and in your PATH?");
@@ -125,81 +122,27 @@ fn main() -> std::io::Result<()> {
         eprintln!("GCC Compilation Failed:\n{}", stderr);
     }
 
-    let architecture = match arch {
-        "x86" | "x86_64" => "x86",
-        "arm" | "aarch64" => "arm",
-        "riscv32" | "riscv64" => "riscv",
-        _ => "unknown",
-    };
+    let output_exe = Command::new("gcc")
+        .args([
+            "-O3",  
+            "-march=native", 
+            "src/output.c", 
+            "-o", 
+            "src/output.exe"
+        ])
+        .output()
+        .expect("Failed to execute gcc. Is it installed and in your PATH?");
 
-    if architecture == "x86"{ 
-        let output_exe = Command::new("gcc")
-            .args([
-                "-O3", 
-                "-masm=intel", 
-                "-march=native", 
-                "output.c", 
-                "-o", 
-                "output.exe"
-            ])
-            .output()
-            .expect("Failed to execute gcc. Is it installed and in your PATH?");
-
-        if output_exe.status.success() {
-            println!("Successfully built output.exe");
-            let _run_status = Command::new(".\\output.exe")
-                .status()
-                .expect("Failed to run output.exe from src folder");
-        } else {
-            let stderr = String::from_utf8_lossy(&output_exe.stderr);
-            eprintln!("GCC Compilation Failed:\n{}", stderr);
-        }
-    } else if architecture == "arm" {
-        let output_exe = Command::new("gcc")
-            .args([
-                "-O3", 
-                "-march=native", 
-                "output.c", 
-                "-o", 
-                "output.exe"
-            ])
-            .output()
-            .expect("Failed to execute gcc. Is it installed and in your PATH?");
-
-        if output_exe.status.success() {
-            println!("Successfully built output.exe");
-            let _run_status = Command::new("./output.exe")
-                .status()
-                .expect("Failed to run output.exe from src folder");
-        } else {
-            let stderr = String::from_utf8_lossy(&output_exe.stderr);
-            eprintln!("GCC Compilation Failed:\n{}", stderr);
-        }
-    } else if architecture == "riscv" {
-        let output_exe = Command::new("riscv64-unknown-elf-gcc")
-            .args([
-                "-O3", 
-                "-march=rv64gc", 
-                "output.c", 
-                "-o", 
-                "output.exe"
-            ])
-            .output()
-            .expect("Failed to execute gcc. Is it installed and in your PATH?");
-
-        if output_exe.status.success() {
-            println!("Successfully built output.exe");
-            let _run_status = Command::new("./output")
-                .status()
-                .expect("Failed to run output.exe from src folder");
-        } else {
-            let stderr = String::from_utf8_lossy(&output_exe.stderr);
-            eprintln!("GCC Compilation Failed:\n{}", stderr);
-        }
+    if output_exe.status.success() {
+        println!("Successfully built output.exe");
+        let _run_status = Command::new("./src/output.exe")
+            .status()
+            .expect("Failed to run output.exe from src folder");
+    } else {
+        let stderr = String::from_utf8_lossy(&output_exe.stderr);
+        eprintln!("GCC Compilation Failed:\n{}", stderr);
     }
-
-
-
+ 
 
     Ok(())
 }
