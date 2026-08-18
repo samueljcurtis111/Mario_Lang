@@ -5,14 +5,14 @@
     { "include": "#strings" },
     { "include": "#numbers" },
     { "include": "#mario-9" },
-    { "include": "#mario-8" },
-    { "include": "#mario-7" },
-    { "include": "#mario-6" },
-    { "include": "#mario-5-print" },
-    { "include": "#mario-4" },
-    { "include": "#mario-3" },
-    { "include": "#mario-2" },
-    { "include": "#mario-1" }
+    { "include": "#mario-8-endloop" },
+    { "include": "#mario-7-beginloop" },
+    { "include": "#mario-6-write" },
+    { "include": "#mario-5-read" },
+    { "include": "#mario-4-left" },
+    { "include": "#mario-3-right" },
+    { "include": "#mario-2-sub" },
+    { "include": "#mario-1-add" }
   ],
   "repository": {
     "comments": {
@@ -45,52 +45,52 @@
     "mario-9": {
       "patterns": [
         {
-          "name": "entity.name.tag.mario",
+          "name": "invalid.illegal.mario",
           "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },
-    "mario-8": {
+    "mario-8-endloop": {
       "patterns": [
         {
-          "name": "keyword.other.mario",
+          "name": "keyword.control.loop.end.mario",
           "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },
-    "mario-7": {
+    "mario-7-beginloop": {
       "patterns": [
         {
-          "name": "entity.name.type.mario",
+          "name": "keyword.control.loop.begin.mario",
           "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },
-    "mario-6": {
+    "mario-6-write": {
       "patterns": [
         {
-          "name": "entity.name.section.mario",
+          "name": "support.function.io.print.mario",
           "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },
-    "mario-5-print": {
+    "mario-5-read": {
       "patterns": [
         {
-          "name": "support.function.mario",
+          "name": "support.function.io.read.mario",
           "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },
-    "mario-4": {
+    "mario-4-left": {
       "patterns": [
         {
-          "name": "keyword.control.mario",
+          "name": "variable.parameter.mario",
           "match": "\\bmario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },
-    "mario-3": {
+    "mario-3-right": {
       "patterns": [
         {
           "name": "storage.type.mario",
@@ -98,18 +98,18 @@
         }
       ]
     },
-    "mario-2": {
+    "mario-2-sub": {
       "patterns": [
         {
-          "name": "constant.language.mario",
+          "name": "keyword.operator.arithmetic.mario",
           "match": "\\bmario\\s+mario\\b"
         }
       ]
     },
-    "mario-1": {
+    "mario-1-add": {
       "patterns": [
         {
-          "name": "variable.parameter.mario",
+          "name": "constant.numeric.mario",
           "match": "\\bmario\\b"
         }
       ]

@@ -2,7 +2,7 @@
   "name": "mario-lang",
   "displayName": "Mario Lang",
   "description": "Syntax highlighting and file icons for Mario Lang",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
