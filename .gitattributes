@@ -1,3 +1,1 @@
-*.mario text diff=mario
-
-* text=auto
+*.mario linguist-language=M
