@@ -1,6 +1,6 @@
 use std::fs;
 use self::Token::*;
-use std::fs;
+use std::process::Command;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
 enum Token {
@@ -20,7 +20,6 @@ enum Token {
 fn tokenize(input: &str) -> Vec<Token> {
     fn convert_marios(input: &str) -> String {
         input
-            .lines()
             .split(|c| c == '\n' || c == '\r')
             .flat_map(|line| line.split("  "))
             .filter_map(|group| {
@@ -93,14 +92,35 @@ for &token in tokens {
 
 
 
+
+
 fn main() -> std::io::Result<()> {
     let input = fs::read_to_string("input.mario")?; 
 
-    let tokens = tokenize(input);
+    let tokens = tokenize(&input);
     let generated_code = generate(&tokens);
 
     fs::write("output.c", generated_code)?;
 
     println!("Successfully saved generated code to output.c");
+    let output = Command::new("gcc")
+        .args([
+            "-O3", 
+            "-S", 
+            "-masm=intel", 
+            "-march=native", 
+            "output.c", 
+            "-o", 
+            "output.s"
+        ])
+        .output()
+        .expect("Failed to execute gcc. Is it installed and in your PATH?");
+
+    if output.status.success() {
+        println!("Created output.s");
+    } else {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        eprintln!("GCC Compilation Failed:\n{}", stderr);
+    }
     Ok(())
 }
