@@ -12,6 +12,8 @@ enum Token {
     Write,     // mario mario mario mario mario mario
     BeginLoop, // mario mario mario mario mario mario mario
     EndLoop,   // mario mario mario mario mario mario mario mario
+    Clear,     // mario mario mario mario mario mario mario mario mario
+
 }
 
 
@@ -49,6 +51,7 @@ fn tokenize(input: &str) -> Vec<Token> {
             '6' => tokens.push(Write),
             '7' => tokens.push(BeginLoop),
             '8' => tokens.push(EndLoop),
+            '9' => tokens.push(Clear),
             _ => {}
         }
     }
@@ -83,6 +86,9 @@ for &token in tokens {
             }
             EndLoop => {
                 output.push_str("\t}\n");
+            }
+            Clear => {
+                output.push_str("\t*ptr = 0;\n");
             }
         }
     }
