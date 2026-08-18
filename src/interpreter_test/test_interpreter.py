@@ -88,8 +88,8 @@ if __name__ == "__main__":
     # 3 marios = >
     # 4 marios = <
     # 5 marios = .
-    # 7 marios = [
-    # 8 marios = ]
+    # 6 marios = [
+    # 7 marios = ]
 
     with open("src/code.mario", "r", encoding="utf-8") as file:
         file_contents = file.read()

@@ -1,10 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "Mario Lang",
   "patterns": [
     { "include": "#comments" },
     { "include": "#strings" },
     { "include": "#numbers" },
+    { "include": "#mario-9" },
     { "include": "#mario-8" },
     { "include": "#mario-7" },
     { "include": "#mario-6" },
@@ -39,6 +39,14 @@
         {
           "name": "constant.numeric.mario",
           "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+    "mario-9": {
+      "patterns": [
+        {
+          "name": "entity.name.tag.mario",
+          "match": "\\bmario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\s+mario\\b"
         }
       ]
     },

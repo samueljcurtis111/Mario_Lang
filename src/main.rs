@@ -1,5 +1,6 @@
 use std::fs;
 use self::Token::*;
+use std::fs;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
 enum Token {
@@ -9,8 +10,8 @@ enum Token {
     Left,      // mario mario mario mario
     Read,      // mario mario mario mario mario
     Write,     // mario mario mario mario mario mario
-    BeginLoop, // mario mario mario mario mairo mario mario
-    EndLoop,   // mario mario mario mario mairo mario mario mario
+    BeginLoop, // mario mario mario mario mario mario mario
+    EndLoop,   // mario mario mario mario mario mario mario mario
 }
 
 
@@ -19,6 +20,7 @@ enum Token {
 fn tokenize(input: &str) -> Vec<Token> {
     fn convert_marios(input: &str) -> String {
         input
+            .lines()
             .split(|c| c == '\n' || c == '\r')
             .flat_map(|line| line.split("  "))
             .filter_map(|group| {
@@ -92,7 +94,7 @@ for &token in tokens {
 
 
 fn main() -> std::io::Result<()> {
-    let input = "mario"; 
+    let input = fs::read_to_string("input.mario")?; 
 
     let tokens = tokenize(input);
     let generated_code = generate(&tokens);
