@@ -4,7 +4,7 @@ use std::process::Command;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
 enum Token {
-    Add,       // mario
+    Add,       // mario 
     Sub,       // mario mario
     Right,     // mario mario mario
     Left,      // mario mario mario mario
