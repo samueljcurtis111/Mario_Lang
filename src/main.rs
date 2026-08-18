@@ -122,5 +122,50 @@ fn main() -> std::io::Result<()> {
         let stderr = String::from_utf8_lossy(&output.stderr);
         eprintln!("GCC Compilation Failed:\n{}", stderr);
     }
+
+
+    let output_exe = Command::new("gcc")
+        .args([
+            "-O3", 
+            "-masm=intel", 
+            "-march=native", 
+            "output.c", 
+            "-o", 
+            "output.exe"
+        ])
+        .output()
+        .expect("Failed to execute gcc. Is it installed and in your PATH?");
+
+    if output_exe.status.success() {
+        println!("Successfully built output.exe");
+        let _run_status = Command::new(".\\output.exe")
+            .status()
+            .expect("Failed to run output.exe from src folder");
+    } else {
+        let stderr = String::from_utf8_lossy(&output_exe.stderr);
+        eprintln!("GCC Compilation Failed:\n{}", stderr);
+    }
+
+
+
     Ok(())
 }
+
+/* 
+ * Benchmark: output.exe (8,000,000 iterations generated from input.mario)
+ * Compiled: GCC -O3 -march=native
+ * Measured via PowerShell Measure-Command:
+ * Total Time: 109.25 ms
+ *
+ Days               : 0
+ Hours              : 0
+ Minutes            : 0
+ Seconds            : 0
+ Milliseconds       : 109
+ Ticks              : 1092465
+ TotalDays          : 1.26442708333333E-06
+ TotalHours         : 3.034625E-05
+ TotalMinutes       : 0.001820775
+ TotalSeconds       : 0.1092465
+ TotalMilliseconds  : 109.2465
+ */
