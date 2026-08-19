@@ -2,6 +2,10 @@
 /target/
 **/*.rs.bk
 
+# Distribution and Installer outputs
+dist/
+installer_output/
+mingw64/
 
 # IDE / Editor local files
 .vscode/

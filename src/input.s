@@ -1,4 +1,4 @@
-	.file	"output.c"
+	.file	"input.c"
 	.text
 	.section	.text.startup,"x"
 	.p2align 4
@@ -10,7 +10,15 @@ main:
 	.seh_stackalloc	40
 	.seh_endprologue
 	call	__main
-	xorl	%ecx, %ecx
+	movl	$77, %ecx
+	call	putchar
+	movl	$85, %ecx
+	call	putchar
+	movl	$114, %ecx
+	call	putchar
+	movl	$97, %ecx
+	call	putchar
+	movl	$103, %ecx
 	call	putchar
 	xorl	%eax, %eax
 	addq	$40, %rsp

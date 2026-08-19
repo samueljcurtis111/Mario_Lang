@@ -300,17 +300,22 @@ fn main() -> std::io::Result<()> {
     let tokens = tokenize(&input);
     let generated_code = generate(&tokens);
 
-    fs::write("src/output.c", generated_code)?;
+    let base = std::path::Path::new(&args[1]).with_extension("");
+    let c_file = format!("{}.c", base.display());
+    let s_file = format!("{}.s", base.display());
+    let exe_file = format!("{}.exe", base.display());
+
+    fs::write(&c_file, generated_code)?;
 
     println!("Successfully saved generated code to output.c");
     let output = Command::new("gcc")
         .args([
-            "-O3", 
+"-O3", 
             "-S",  
             "-march=native", 
-            "src/output.c", 
+            &c_file, 
             "-o", 
-            "src/output.s"
+            &s_file
         ])
         .output()
         .expect("Failed to execute gcc. Is it installed and in your PATH?");
@@ -326,16 +331,16 @@ fn main() -> std::io::Result<()> {
         .args([
             "-O3",  
             "-march=native", 
-            "src/output.c", 
+            &c_file, 
             "-o", 
-            "src/output.exe"
+            &exe_file
         ])
         .output()
         .expect("Failed to execute gcc. Is it installed and in your PATH?");
 
     if output_exe.status.success() {
-        println!("Successfully built output.exe");
-        let _run_status = Command::new("./src/output.exe")
+        println!("Successfully built {}", exe_file);
+        let _run_status = Command::new(&exe_file)
             .status()
             .expect("Failed to run output.exe from src folder");
     } else {
