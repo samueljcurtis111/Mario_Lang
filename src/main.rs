@@ -288,7 +288,14 @@ for &token in tokens {
 
 
 fn main() -> std::io::Result<()> {
-    let input = fs::read_to_string("src/input.mario")?;
+    let args: Vec<String> = std::env::args().collect();
+
+    if args.len() < 2 {
+        println!("Usage: mario <file.mario>");
+        return Ok(());
+    }
+
+    let input = fs::read_to_string(&args[1])?;
 
     let tokens = tokenize(&input);
     let generated_code = generate(&tokens);
