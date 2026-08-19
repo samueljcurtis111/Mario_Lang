@@ -10,15 +10,7 @@ main:
 	.seh_stackalloc	40
 	.seh_endprologue
 	call	__main
-	movl	$77, %ecx
-	call	putchar
-	movl	$97, %ecx
-	call	putchar
-	movl	$114, %ecx
-	call	putchar
-	movl	$105, %ecx
-	call	putchar
-	movl	$111, %ecx
+	xorl	%ecx, %ecx
 	call	putchar
 	xorl	%eax, %eax
 	addq	$40, %rsp
