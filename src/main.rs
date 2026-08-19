@@ -28,6 +28,21 @@ enum Token {
     Add14,
     Add15,
     Add16,
+    Sub2,
+    Sub3,
+    Sub4,
+    Sub5,
+    Sub6,
+    Sub7,
+    Sub8,
+    Sub9,
+    Sub10,
+    Sub11,
+    Sub12,
+    Sub13,
+    Sub14,
+    Sub15,
+    Sub16,
 }
 
 
@@ -52,6 +67,21 @@ fn tokenize(input: &str) -> Vec<Token> {
 
     let converted = convert_marios(input);
     let result = converted
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2", "25")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2 2", "26")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2", "27")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2", "28")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2", "29")
+        .replace("2 2 2 2 2 2 2 2 2 2 2", "30")
+        .replace("2 2 2 2 2 2 2 2 2 2", "31")
+        .replace("2 2 2 2 2 2 2 2 2", "32")
+        .replace("2 2 2 2 2 2 2 2", "33")
+        .replace("2 2 2 2 2 2 2", "34")
+        .replace("2 2 2 2 2 2", "35")
+        .replace("2 2 2 2 2", "36")
+        .replace("2 2 2 2", "37")
+        .replace("2 2 2", "38")
+        .replace("2 2", "39")
         .replace("1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1", "24")
         .replace("1 1 1 1 1 1 1 1 1 1 1 1 1 1 1", "23")
         .replace("1 1 1 1 1 1 1 1 1 1 1 1 1 1", "22")
@@ -98,6 +128,21 @@ fn tokenize(input: &str) -> Vec<Token> {
             "22" => tokens.push(Token::Add14),
             "23" => tokens.push(Token::Add15),
             "24" => tokens.push(Token::Add16),
+            "25" => tokens.push(Token::Sub2),
+            "26" => tokens.push(Token::Sub3),
+            "27" => tokens.push(Token::Sub4),
+            "28" => tokens.push(Token::Sub5),
+            "29" => tokens.push(Token::Sub6),
+            "30" => tokens.push(Token::Sub7),
+            "31" => tokens.push(Token::Sub8),
+            "32" => tokens.push(Token::Sub9),
+            "33" => tokens.push(Token::Sub10),
+            "34" => tokens.push(Token::Sub11),
+            "35" => tokens.push(Token::Sub12),
+            "36" => tokens.push(Token::Sub13),
+            "37" => tokens.push(Token::Sub14),
+            "38" => tokens.push(Token::Sub15),
+            "39" => tokens.push(Token::Sub16),
             _ => {}
         }
     }
@@ -181,6 +226,51 @@ for &token in tokens {
             Add16 => {
                 output.push_str("\t*ptr += 16;\n");
             }
+            Sub2 => {
+                output.push_str("\t*ptr -= 2;\n");
+            }
+            Sub3 => {
+                output.push_str("\t*ptr -= 3;\n");
+            }
+            Sub4 => {
+                output.push_str("\t*ptr -= 4;\n");
+            }
+            Sub5 => {
+                output.push_str("\t*ptr -= 5;\n");
+            }
+            Sub6 => {
+                output.push_str("\t*ptr -= 6;\n");
+            }
+            Sub7 => {
+                output.push_str("\t*ptr -= 7;\n");
+            }
+            Sub8 => {
+                output.push_str("\t*ptr -= 8;\n");
+            }
+            Sub9 => {
+                output.push_str("\t*ptr -= 9;\n");
+            }
+            Sub10 => {
+                output.push_str("\t*ptr -= 10;\n");
+            }
+            Sub11 => {
+                output.push_str("\t*ptr -= 11;\n");
+            }
+            Sub12 => {
+                output.push_str("\t*ptr -= 12;\n");
+            }
+            Sub13 => {
+                output.push_str("\t*ptr -= 13;\n");
+            }
+            Sub14 => {
+                output.push_str("\t*ptr -= 14;\n");
+            }
+            Sub15 => {
+                output.push_str("\t*ptr -= 15;\n");
+            }
+            Sub16 => {
+                output.push_str("\t*ptr -= 16;\n");
+            }
         }
     }
     output.push_str("}\n");
@@ -250,20 +340,19 @@ fn main() -> std::io::Result<()> {
  * ============================================================================
  * Workload   : 8,000,000 iterations + Clear & Multi-Add optimizations
  * Pipeline   : .mario -> Rust Peephole Transpiler -> GCC -O3 -march=native
- * Execution  : 50.05 ms (Down from 109.25 ms baseline)
- * Speedup    : ~2.18x Faster
+ * Execution  : 45.509 ms (Down from 109.25 ms baseline)
  * Throughput : ~159.8 Million Operations / sec
  *
- * Days              : 0
- * Hours             : 0
- * Minutes           : 0
- * Seconds           : 0
- * Milliseconds      : 50
- * Ticks             : 500572
- * TotalDays         : 5.79365740740741E-07
- * TotalHours        : 1.39047777777778E-05
- * TotalMinutes      : 0.000834286666666667
- * TotalSeconds      : 0.0500572
- * TotalMilliseconds : 50.0572
+Days              : 0
+Hours             : 0
+Minutes           : 0
+Seconds           : 0
+Milliseconds      : 45
+Ticks             : 455090
+TotalDays         : 5.26724537037037E-07
+TotalHours        : 1.26413888888889E-05
+TotalMinutes      : 0.000758483333333333
+TotalSeconds      : 0.045509
+TotalMilliseconds : 45.509
  * ============================================================================
  */
