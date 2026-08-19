@@ -1,4 +1,4 @@
-	.file	"output.c"
+	.file	"input.c"
 	.text
 	.section	.text.startup,"x"
 	.p2align 4
@@ -12,13 +12,13 @@ main:
 	call	__main
 	movl	$77, %ecx
 	call	putchar
-	movl	$97, %ecx
+	movl	$85, %ecx
 	call	putchar
 	movl	$114, %ecx
 	call	putchar
-	movl	$105, %ecx
+	movl	$97, %ecx
 	call	putchar
-	movl	$111, %ecx
+	movl	$103, %ecx
 	call	putchar
 	xorl	%eax, %eax
 	addq	$40, %rsp
