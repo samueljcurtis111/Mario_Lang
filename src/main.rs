@@ -43,7 +43,6 @@ enum Token {
     Sub14,
     Sub15,
     Sub16,
-    MoveRight,
 }
 
 
@@ -52,37 +51,41 @@ enum Token {
 fn tokenize(input: &str) -> Vec<Token> {
     fn convert_marios(input: &str) -> String {
         input
-            .split(|c| c == '\n' || c == '\r')
-            .flat_map(|line| line.split("  "))
-            .filter_map(|group| {
-                let words: Vec<&str> = group.split_whitespace().collect();
-                if words.is_empty() {
-                    None
-                } else {
-                    Some(words.len().to_string())
-                }
+            .lines()
+            .map(|line| {
+                // Replace non-breaking spaces (\u{00A0}) and tabs with standard double spaces
+                let clean_line = line.replace('\u{00A0}', " ").replace('\t', "  ");
+                
+                clean_line
+                    .split("  ")
+                    .map(|group| group.split_whitespace().count())
+                    .filter(|&count| count > 0)
+                    .map(|count| count.to_string())
+                    .collect::<Vec<_>>()
+                    .join(" ")
             })
+            .filter(|s| !s.is_empty())
             .collect::<Vec<_>>()
             .join(" ")
     }
 
     let converted = convert_marios(input);
     let result = converted
-        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2", "25")
-        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2 2", "26")
-        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2", "27")
-        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2", "28")
-        .replace("2 2 2 2 2 2 2 2 2 2 2 2", "29")
-        .replace("2 2 2 2 2 2 2 2 2 2 2", "30")
-        .replace("2 2 2 2 2 2 2 2 2 2", "31")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2", "39")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2 2", "38")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2 2", "37")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2 2", "36")
+        .replace("2 2 2 2 2 2 2 2 2 2 2 2", "35")
+        .replace("2 2 2 2 2 2 2 2 2 2 2", "34")
+        .replace("2 2 2 2 2 2 2 2 2 2", "33")
         .replace("2 2 2 2 2 2 2 2 2", "32")
-        .replace("2 2 2 2 2 2 2 2", "33")
-        .replace("2 2 2 2 2 2 2", "34")
-        .replace("2 2 2 2 2 2", "35")
-        .replace("2 2 2 2 2", "36")
-        .replace("2 2 2 2", "37")
-        .replace("2 2 2", "38")
-        .replace("2 2", "39")
+        .replace("2 2 2 2 2 2 2 2", "31")
+        .replace("2 2 2 2 2 2 2", "30")
+        .replace("2 2 2 2 2 2", "29")
+        .replace("2 2 2 2 2", "28")
+        .replace("2 2 2 2", "27")
+        .replace("2 2 2", "26")
+        .replace("2 2", "25")
         .replace("1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1", "24")
         .replace("1 1 1 1 1 1 1 1 1 1 1 1 1 1 1", "23")
         .replace("1 1 1 1 1 1 1 1 1 1 1 1 1 1", "22")
@@ -97,8 +100,7 @@ fn tokenize(input: &str) -> Vec<Token> {
         .replace("1 1 1 1 1", "13")
         .replace("1 1 1 1", "12")
         .replace("1 1 1", "11")
-        .replace("1 1", "10")
-        .replace("7 2 4 1 3 8", "40");
+        .replace("1 1", "10");
 
     println!("{result}");
     let _input = converted.as_str();
@@ -145,7 +147,6 @@ fn tokenize(input: &str) -> Vec<Token> {
             "37" => tokens.push(Token::Sub14),
             "38" => tokens.push(Token::Sub15),
             "39" => tokens.push(Token::Sub16),
-            "40" => tokens.push(Token::MoveRight),
             _ => {}
         }
     }
@@ -274,9 +275,6 @@ for &token in tokens {
             Sub16 => {
                 output.push_str("\t*ptr -= 16;\n");
             }
-            MoveRight => {
-                output.push_str("\tptr[1] += *ptr;\n \t*ptr = 0;\n")
-            }
         }
     }
     output.push_str("}\n");
@@ -307,10 +305,11 @@ fn main() -> std::io::Result<()> {
 
     fs::write(&c_file, generated_code)?;
 
-    println!("Successfully saved generated code to output.c");
+    println!("Successfully saved generated code to {}", c_file);
+
     let output = Command::new("gcc")
         .args([
-"-O3", 
+            "-O3", 
             "-S",  
             "-march=native", 
             &c_file, 
@@ -321,7 +320,7 @@ fn main() -> std::io::Result<()> {
         .expect("Failed to execute gcc. Is it installed and in your PATH?");
 
     if output.status.success() {
-        println!("Created output.s");
+        println!("Created {}", s_file);
     } else {
         let stderr = String::from_utf8_lossy(&output.stderr);
         eprintln!("GCC Compilation Failed:\n{}", stderr);
@@ -340,18 +339,18 @@ fn main() -> std::io::Result<()> {
 
     if output_exe.status.success() {
         println!("Successfully built {}", exe_file);
-        let _run_status = Command::new(&exe_file)
+        
+        let exe_path = std::env::current_dir()?.join(&exe_file);
+        let _run_status = Command::new(&exe_path)
             .status()
-            .expect("Failed to run output.exe from src folder");
+            .unwrap_or_else(|_| panic!("Failed to run {}", exe_path.display()));
     } else {
         let stderr = String::from_utf8_lossy(&output_exe.stderr);
         eprintln!("GCC Compilation Failed:\n{}", stderr);
     }
- 
 
     Ok(())
 }
-
 /*
  * ============================================================================
  * BENCHMARK RESULT: Optimized Mario AST Compiler
