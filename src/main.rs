@@ -43,6 +43,7 @@ enum Token {
     Sub14,
     Sub15,
     Sub16,
+    MoveRight,
 }
 
 
@@ -96,7 +97,8 @@ fn tokenize(input: &str) -> Vec<Token> {
         .replace("1 1 1 1 1", "13")
         .replace("1 1 1 1", "12")
         .replace("1 1 1", "11")
-        .replace("1 1", "10");
+        .replace("1 1", "10")
+        .replace("7 2 4 1 3 8", "40");
 
     println!("{result}");
     let _input = converted.as_str();
@@ -143,6 +145,7 @@ fn tokenize(input: &str) -> Vec<Token> {
             "37" => tokens.push(Token::Sub14),
             "38" => tokens.push(Token::Sub15),
             "39" => tokens.push(Token::Sub16),
+            "40" => tokens.push(Token::MoveRight),
             _ => {}
         }
     }
@@ -270,6 +273,9 @@ for &token in tokens {
             }
             Sub16 => {
                 output.push_str("\t*ptr -= 16;\n");
+            }
+            MoveRight => {
+                output.push_str("\tptr[1] += *ptr;\n \t*ptr = 0;\n")
             }
         }
     }
