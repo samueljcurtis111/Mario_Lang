@@ -1,4 +1,9 @@
 # Mario Lang
+[![Documentation](https://img.shields.io/badge/Docs-View_Full_Documentation-blue?style=for-the-badge&logo=github)](https://github.com/your-username/my-project-docs)
+
+> 📖 **Looking for the full docs?** Check out our dedicated [Documentation Repository](https://github.com/your-username/my-project-docs) for complete guides and setup instructions.
+
+# Mario Lang
 The Mario Lang is a transpiled esoteric coding language I developed for my friend Mario. It is a minimalist programming language that uses a tape of 30,000 memory cells initialized to zero and a single moving pointer. It runs entirely on eight commands that change cell values, move the pointer, handle input/output, or loop based on whether a cell is zero.
 
 ## How it works
